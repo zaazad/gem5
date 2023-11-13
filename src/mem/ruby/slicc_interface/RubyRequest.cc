@@ -61,9 +61,7 @@ RubyRequest::print(std::ostream& out) const
   out << " " << "AccessMode = " << m_AccessMode << " ";
   out << "Size = " << m_Size << " ";
   out << "Prefetch = " << m_Prefetch << " ";
-  out << "isGLCSet = " << m_isGLCSet << "";
-  out << "isSLCSet = " << m_isSLCSet << "";
-  //  out << "Time = " << getTime() << " ";
+//  out << "Time = " << getTime() << " ";
   out << "]";
 }
 
