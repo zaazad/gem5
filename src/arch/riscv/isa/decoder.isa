@@ -766,6 +766,27 @@ decode QUADRANT default Unknown::unknown() {
             }
         }
 
+	0x02: decode FUNCT3 {
+		      0x0: VleOp::optic(
+			{{
+			if ((machInst.vm || elem_mask(v0, ei)) && i < this->microVl) {
+				Vd_uw[i] = Mem_vc.as<uint32_t>()[i];
+				auto temp_1 = Vd_uw[i] + 1;
+				Vd_merger_1[i] = temp_1;
+				Vd_uw[i] = Mem_vc.as<uint32_t>()[i+128];
+				auto temp_2 = Vd_uw[i] + 1;
+				d_merger_2[i] = temp_2;
+				auto temp_3 = temp_1 * temp_2;
+				Vd_merger_3[i] = temp_3;
+				Mem_vc.as<uint32_t>()[i] = Vd_merger_3[i];
+			} else {
+				Vd_uw[i] = Vs2_uw[i];
+				}
+			}},
+			inst_flags=VectorUnitStrideLoadOp);
+	      }
+
+				
         0x03: decode FUNCT3 {
             format FenceOp {
                 0x0: fence({{
